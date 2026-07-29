@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decode Tonight's Journey</title>
+
+<meta property="og:title" content="Decode Tonight's Journey">
+<meta property="og:description" content="Spin, tap, or write your dream — get a modern read on what it means.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dreaminterpreterwheel.com">
+<meta property="og:image" content="https://dreaminterpreterwheel.com/social-preview.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Decode Tonight's Journey">
+<meta name="twitter:description" content="Spin, tap, or write your dream — get a modern read on what it means.">
+<meta name="twitter:image" content="https://dreaminterpreterwheel.com/social-preview.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0d1a;
+    --void-2:#11162a;
+    --panel:#151b32;
+    --line: rgba(255,255,255,0.08);
+    --violet:#8b7bf7;
+    --teal:#3ee8c9;
+    --amber:#f7b955;
+    --text:#eceefc;
+    --text-dim:#9098bd;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(139,123,247,0.15), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(62,232,201,0.12), transparent 45%),
+      var(--void);
+    color:var(--text);
+    min-height:100vh;
+    padding:32px 16px 60px;
+  }
+  .wrap{max-width:520px; margin:0 auto;}
+  .eyebrow{
+    font-size:12px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--teal); text-align:center; margin-bottom:8px; font-weight:600;
+  }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:32px; line-height:1.1; text-align:center; margin:0 0 10px;
+    background:linear-gradient(120deg,#fff, var(--violet) 70%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .sub{ text-align:center; color:var(--text-dim); font-size:14px; margin-bottom:28px; }
+
+  .streak{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    font-size:12px; color:var(--amber); margin-bottom:24px;
+  }
+
+  .dial-zone{ position:relative; display:flex; justify-content:center; margin:20px 0 8px; }
+  .dial-outer{
+    position:relative; width:min(340px, 88vw); height:min(340px, 88vw);
+  }
+  .dial{
+    width:100%; height:100%; border-radius:50%;
+    transition: transform 3.5s cubic-bezier(0.15, 0.85, 0.2, 1);
+    transform: rotate(0deg);
+    filter: drop-shadow(0 0 30px rgba(139,123,247,0.35));
+  }
+  .pointer{
+    position:absolute; top:-8px; left:50%; transform:translateX(-50%);
+    width:0; height:0;
+    border-left:12px solid transparent; border-right:12px solid transparent;
+    border-top:21px solid var(--teal);
+    filter: drop-shadow(0 0 6px var(--teal));
+    z-index:5;
+  }
+  .hub{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:30%; height:30%; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, #232a4a, var(--void-2));
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; user-select:none;
+    font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px;
+    color:var(--text);
+    box-shadow: 0 0 0 6px rgba(139,123,247,0.08);
+    z-index:6;
+  }
+  .hub:active{ transform:translate(-50%,-50%) scale(0.96); }
+  .hub.spinning{ pointer-events:none; opacity:0.7; }
+  .wedge{ cursor:pointer; transition: fill-opacity 0.15s ease; }
+  .wedge:hover{ fill-opacity:0.4; }
+
+  .field{ margin-top:28px; }
+  label{ display:block; font-size:12px; color:var(--text-dim); margin-bottom:8px; letter-spacing:0.02em; }
+  .textarea-wrap{ position:relative; }
+  textarea{
+    width:100%; min-height:64px; resize:vertical;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:12px 14px 26px 14px; color:var(--text); font-family:'Inter',sans-serif; font-size:14px;
+    outline:none;
+  }
+  textarea:focus{ border-color: var(--violet); }
+  textarea::placeholder{ color:#5c6389; }
+  .word-count{
+    position:absolute; right:10px; bottom:8px;
+    font-size:11px; color:var(--text-dim); pointer-events:none;
+    background:var(--panel); padding:0 2px;
+  }
+  .word-count.near-limit{ color:var(--amber); }
+  .word-count.at-limit{ color:var(--amber); font-weight:600; }
+
+  .go-btn{
+    width:100%; margin-top:16px; padding:14px; border-radius:12px; border:none;
+    background: linear-gradient(120deg, var(--violet), var(--teal));
+    color:#0a0d1a; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px;
+    cursor:pointer; letter-spacing:0.01em;
+  }
+  .go-btn:disabled{ opacity:0.5; cursor:default; }
+
+  .result{
+    margin-top:28px; border-radius:18px; border:1px solid var(--line);
+    background: linear-gradient(160deg, var(--panel), var(--void-2));
+    padding:22px; display:none; position:relative; overflow:hidden;
+  }
+  .result.show{ display:block; animation: rise 0.5s ease; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+  .result::before{
+    content:''; position:absolute; top:-40%; right:-20%; width:200px; height:200px;
+    background: radial-gradient(circle, rgba(139,123,247,0.25), transparent 70%);
+    pointer-events:none;
+  }
+  .result-tag{
+    display:inline-block; font-size:11px; text-transform:uppercase; letter-spacing:0.12em;
+    color:var(--void); background:var(--teal); padding:3px 10px; border-radius:20px;
+    font-weight:700; margin-bottom:12px;
+  }
+  .result-symbol{
+    font-family:'Space Grotesk', sans-serif; font-size:22px; font-weight:600; margin:0 0 10px;
+  }
+  .result-body{ font-size:14px; line-height:1.6; color:#d4d7f0; margin:0 0 16px; }
+  .result-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+  .copy-btn{
+    flex:1; min-width:96px; padding:10px 6px; border-radius:10px; border:1px solid var(--line);
+    background:transparent; color:var(--text); font-size:12px; cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .copy-btn:hover{ border-color: var(--violet); color: var(--violet); }
+  .loading-line{ font-size:13px; color:var(--text-dim); text-align:center; margin-top:16px; display:none; }
+  .loading-line.show{ display:block; }
+  .bypass-line{ text-align:center; margin-top:12px; }
+  .bypass-btn{ background:none; border:none; padding:0; font-size:12.5px; color:var(--teal); text-decoration:underline; cursor:pointer; font-family:'Inter',sans-serif; }
+
+  .note{ margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--text-dim); text-align:center; line-height:1.6; }
+  .privacy-line{ margin-top:8px; font-size:10.5px; color:#5c6389; text-align:center; }
+  .footer-nav{ margin-top:14px; text-align:center; font-size:11.5px; }
+  .footer-nav a{ color:var(--text-dim); text-decoration:none; }
+  .footer-nav a:hover{ color:var(--teal); }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SHZLFX62ES"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-SHZLFX62ES');
+</script>
+</head>
+
+<body>
+<div class="wrap">
+  <h1>Decode Tonight's Journey</h1>
+  <p class="sub">Spin randomly, tap the word that matches your dream, or just write it below.</p>
+  <div class="streak" id="streakLine">✦ Come back tomorrow for a new reading</div>
+
+  <div class="dial-zone">
+    <div class="dial-outer">
+      <div class="pointer"></div>
+      <svg class="dial" id="dial" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="hub" id="hub">SPIN</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="detail">Describe your dream (or just add detail to sharpen a spin/tap result)</label>
+    <div class="textarea-wrap">
+      <textarea id="detail" placeholder="e.g. it was my childhood house, and the water kept rising..."></textarea>
+      <span class="word-count" id="wordCount">0/500 words</span>
+    </div>
+  </div>
+
+  <button class="go-btn" id="interpretBtn">Spin &amp; Interpret</button>
+  <div class="loading-line" id="loadingLine">✦ Reading the pattern…</div>
+  <div class="bypass-line" id="bypassLine" style="display:none;">
+    <button type="button" class="bypass-btn" id="bypassLink">Ignore the wheel — just read what I wrote</button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-tag" id="resultTag">Symbol</div>
+    <p class="result-symbol" id="resultSymbol"></p>
+    <p class="result-body" id="resultBody"></p>
+    <div class="result-actions">
+      <button class="copy-btn" id="copyBtn">Copy reading</button>
+      <button class="copy-btn" id="againBtn">Spin again</button>
+      <button class="copy-btn" id="clearBtn">Clear</button>
+    </div>
+  </div>
+
+  <div class="note">✦ Dream Interpreter Wheel — a new symbol, a new read, every night you return.</div>
+  <div class="privacy-line">Your dream stays private — sent only to generate your reading, never stored.</div>
+  <div class="footer-nav"><a href="/about.html">About</a> · <a href="/privacy.html">Privacy</a> · <a href="/contact.html">Contact</a></div>
+</div>
+
+<script>
+const symbols = [
+  { name:"Falling", label:"Falling", color:"#8b7bf7" },
+  { name:"Being Chased", label:"Chased", color:"#3ee8c9" },
+  { name:"Teeth", label:"Teeth", color:"#f7b955" },
+  { name:"Water", label:"Water", color:"#5b8def" },
+  { name:"Flying", label:"Flying", color:"#e57bd6" },
+  { name:"A Stranger", label:"Stranger", color:"#7bf7a8" },
+  { name:"Your Childhood Home", label:"Old Home", color:"#f78b6b" },
+  { name:"Death", label:"Death", color:"#a78bfa" },
+  { name:"Snakes", label:"Snakes", color:"#3ee89f" },
+  { name:"Losing Something", label:"Loss", color:"#f7d55b" },
+  { name:"Fire", label:"Fire", color:"#f76b6b" },
+  { name:"Being Late", label:"Late", color:"#6bc4f7" },
+  { name:"Eating", label:"Eating", color:"#e0b465" },
+  { name:"Dancing", label:"Dancing", color:"#ff7bb0" },
+  { name:"Wedding", label:"Wedding", color:"#f2a6c9" },
+  { name:"Singing", label:"Singing", color:"#9bf76b" }
+];
+
+const dial = document.getElementById('dial');
+const hub = document.getElementById('hub');
+const interpretBtn = document.getElementById('interpretBtn');
+const detailInput = document.getElementById('detail');
+const resultBox = document.getElementById('result');
+const resultTag = document.getElementById('resultTag');
+const resultSymbol = document.getElementById('resultSymbol');
+const resultBody = document.getElementById('resultBody');
+const loadingLine = document.getElementById('loadingLine');
+const streakLine = document.getElementById('streakLine');
+
+let currentSymbol = null;
+let totalRotation = 0;
+
+function buildWheel(){
+  const cx=130, cy=130, r=125;
+  const n = symbols.length;
+  const anglePer = 360/n;
+  let svg = '';
+  symbols.forEach((s,i)=>{
+    const startAngle = i*anglePer - 90;
+    const endAngle = startAngle + anglePer;
+    const x1 = cx + r*Math.cos(startAngle*Math.PI/180);
+    const y1 = cy + r*Math.sin(startAngle*Math.PI/180);
+    const x2 = cx + r*Math.cos(endAngle*Math.PI/180);
+    const y2 = cy + r*Math.sin(endAngle*Math.PI/180);
+    svg += `<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 0,1 ${x2},${y2} Z" fill="${s.color}" fill-opacity="0.18" stroke="rgba(255,255,255,0.08)" stroke-width="1" class="wedge" data-index="${i}"/>`;
+    const midAngle = startAngle + anglePer/2;
+    const tx = cx + (r*0.74)*Math.cos(midAngle*Math.PI/180);
+    const ty = cy + (r*0.74)*Math.sin(midAngle*Math.PI/180);
+    const wedgeArcWidth = 2 * (r*0.74) * Math.sin((anglePer*0.9/2) * Math.PI/180);
+    svg += `<text x="${tx}" y="${ty}" fill="#eceefc" font-size="10" font-family="Space Grotesk, sans-serif" font-weight="700" text-anchor="middle" dominant-baseline="middle" textLength="${Math.min(wedgeArcWidth, s.label.length*6.2)}" lengthAdjust="spacingAndGlyphs" transform="rotate(${midAngle+90}, ${tx}, ${ty})">${s.label}</text>`;
+  });
+  dial.innerHTML = svg;
+}
+buildWheel();
+
+function rotateToIndex(chosenIndex, spins){
+  return new Promise((resolve)=>{
+    hub.classList.add('spinning');
+    hub.textContent = '…';
+    interpretBtn.disabled = true;
+    interpretBtn.textContent = 'Spinning…';
+    resultBox.classList.remove('show');
+
+    const n = symbols.length;
+    const anglePer = 360/n;
+    // pointer is at top (0deg). Wheel sector i center is at angle (i*anglePer) from top after rotation math above (-90 offset baked into draw, so sector i's visual center is at i*anglePer measuring from top).
+    const targetAngleAtTop = chosenIndex*anglePer;
+    const finalRotation = totalRotation + spins*360 + (360 - targetAngleAtTop) - (totalRotation % 360);
+    totalRotation = finalRotation;
+    dial.style.transform = `rotate(${finalRotation}deg)`;
+
+    setTimeout(()=>{
+      currentSymbol = symbols[chosenIndex];
+      hub.classList.remove('spinning');
+      hub.textContent = 'SPIN';
+      interpretBtn.disabled = false;
+      interpretBtn.textContent = `Interpret "${currentSymbol.name}"`;
+      updateBypassVisibility();
+      resolve(currentSymbol);
+    }, 3600);
+  });
+}
+
+function trackEvent(name, params){
+  if(typeof gtag === 'function'){
+    gtag('event', name, params || {});
+  }
+}
+
+function spin(){
+  const n = symbols.length;
+  const chosenIndex = Math.floor(Math.random()*n);
+  const spins = 5;
+  trackEvent('spin_wheel');
+  return rotateToIndex(chosenIndex, spins);
+}
+
+hub.addEventListener('click', ()=>{
+  if(hub.classList.contains('spinning')) return;
+  if(!currentSymbol && hasMeaningfulDetail()){
+    interpretBtn.click();
+    return;
+  }
+  spin();
+});
+
+dial.addEventListener('click', (e)=>{
+  if(hub.classList.contains('spinning')) return;
+  const wedge = e.target.closest('.wedge');
+  if(!wedge) return;
+  const index = parseInt(wedge.getAttribute('data-index'), 10);
+  trackEvent('tap_symbol', { symbol: symbols[index].name });
+  rotateToIndex(index, 2);
+});
+
+function localInterpretation(symbol, detail){
+  const bank = {
+    "Falling": "Your subconscious is running a stability check. Something in waking life feels ungrounded — a decision, a relationship, a sense of control you're not sure you have. The fall itself rarely matters; what you're reaching for as you drop usually does.",
+    "Being Chased": "This is your mind rehearsing avoidance. Somewhere you're outrunning a conversation, a task, or a truth instead of turning to face it. The pursuer is rarely a stranger — it's usually a version of the problem you haven't named yet.",
+    "Teeth": "A classic control-and-image signal. Teeth dreams tend to surface when you're worried about how you're perceived, or about losing something functional — words, confidence, a sense of capability you rely on daily.",
+    "Water": "Water tracks emotional bandwidth. Calm water suggests you're processing feelings well; rising or turbulent water suggests something emotional is building faster than you're able to release it.",
+    "Flying": "Usually a freedom signal — your mind testing what it feels like to be unconstrained. If the flying felt easy, something in your life finally feels within your control. If it felt shaky, the freedom feels new and untrusted.",
+    "A Stranger": "Strangers in dreams are rarely strangers — they're often disowned parts of yourself, traits you don't consciously claim. Notice how they made you feel; that feeling is pointing at something in you, not them.",
+    "Your Childhood Home": "Old houses in dreams map to identity, not memory. Visiting one usually means you're re-examining who you were versus who you've become, especially if rooms looked different than you remember.",
+    "Death": "Almost never literal. Dream-death nearly always represents an ending your mind has already accepted — a phase, identity, relationship, or habit that's wrapping up, making room for what's next.",
+    "Snakes": "Snakes are transformation symbols more often than threat symbols. They tend to appear when you're mid-change and haven't decided yet whether the change is dangerous or necessary.",
+    "Losing Something": "This usually isn't about the object — it's about a fear of losing capability, relevance, or connection. What the item represented to you matters more than what it was.",
+    "Fire": "Fire dreams tend to appear during high-intensity periods — anger, passion, or urgency building somewhere in your life that hasn't found a healthy outlet yet.",
+    "Being Late": "A pressure-and-pace dream. Your mind is flagging a gap between how fast you feel life is moving and how ready you feel to keep up with it.",
+    "Eating": "This tracks appetite in the broader sense — not just food, but whether your needs are actually being met right now. It often surfaces when you're craving satisfaction, comfort, or control over something you've been going without.",
+    "Dancing": "Dancing dreams signal emotional release. Your mind is testing how free you feel to express yourself without being watched or judged — the quality of the dance usually mirrors how safe that freedom currently feels.",
+    "Wedding": "Rarely about an actual wedding. This is a merging symbol — two parts of your life, identity, or a relationship coming together into one committed thing. Pay attention to who or what was involved; that's the real subject.",
+    "Singing": "A voice symbol. Your mind is flagging something that wants to be expressed but hasn't found its outlet yet — an opinion, a feeling, or a truth that's been queued up longer than it should have been."
+  };
+  const futuristTake = {
+    "Falling": "Think of it like a system running a fall-detection routine on your sense of stability.",
+    "Being Chased": "Your mind is basically running the same background process on loop until you address it directly.",
+    "Teeth": "A maintenance alert, essentially — something reliable in you is asking to be checked on.",
+    "Water": "An emotional load-balancer working overtime.",
+    "Flying": "A test flight for a version of you operating without old constraints.",
+    "A Stranger": "An unindexed part of your own identity, surfacing to get logged.",
+    "Your Childhood Home": "A version-control check — comparing an old build of you against the current one.",
+    "Death": "A clean shutdown of a process that's already served its purpose.",
+    "Snakes": "A transformation script mid-execution, not yet resolved.",
+    "Losing Something": "A dropped-connection alert — something you rely on feels less stable than usual.",
+    "Fire": "An overheating system flagging unreleased intensity.",
+    "Being Late": "A sync error between your internal pace and the world's.",
+    "Eating": "A resource-intake check, verifying whether your actual needs are being met.",
+    "Dancing": "A freedom-of-movement test running to see how unrestricted your system feels.",
+    "Wedding": "A merge — two separate branches of your life syncing into one.",
+    "Singing": "An output channel finally opening for something that's been queued up."
+  };
+  let body = bank[symbol.name] + " " + futuristTake[symbol.name];
+  if(detail && detail.trim().length > 3){
+    body += ` Given what you described — "${detail.trim().slice(0,140)}" — this reading likely centers on whatever that detail represents to you personally, more than the symbol itself.`;
+  }
+  return body;
+}
+
+function localTextOnlyInterpretation(detail){
+  return `What you described points to something specific already forming in your mind, even without a symbol attached to it. Dreams like this tend to be less about hidden meaning and more about your mind rehearsing something — a feeling, a decision, or an unresolved moment — while your guard is down. Given what you wrote — "${detail.trim().slice(0,160)}" — pay attention to how it made you feel in the dream more than what literally happened; that emotional charge is usually the actual message.`;
+}
+
+async function generateInterpretation(symbol, detail){
+  try{
+    const response = await fetch("/.netlify/functions/interpret", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ symbolName: symbol ? symbol.name : null, detail: detail })
+    });
+    if(!response.ok) throw new Error("function call failed");
+    const data = await response.json();
+    if(data.text) return data.text.trim();
+    throw new Error("no text");
+  }catch(e){
+    return symbol ? localInterpretation(symbol, detail) : localTextOnlyInterpretation(detail);
+  }
+}
+
+function hasMeaningfulDetail(){
+  return detailInput.value.trim().length > 0;
+}
+
+interpretBtn.addEventListener('click', async ()=>{
+  if(hub.classList.contains('spinning')) return;
+  const writtenOnly = !currentSymbol && hasMeaningfulDetail();
+  if(!currentSymbol && !writtenOnly){
+    await spin();
+  }
+  loadingLine.classList.add('show');
+  interpretBtn.disabled = true;
+  const detail = detailInput.value;
+  const body = await generateInterpretation(writtenOnly ? null : currentSymbol, detail);
+  loadingLine.classList.remove('show');
+  interpretBtn.disabled = false;
+
+  if(writtenOnly){
+    resultTag.textContent = "Your Dream";
+    resultSymbol.textContent = "A reading of what you wrote";
+  } else {
+    resultTag.textContent = currentSymbol.name;
+    resultSymbol.textContent = `Dreaming of ${currentSymbol.name.toLowerCase()}`;
+  }
+  resultBody.textContent = body;
+  resultBox.classList.add('show');
+
+  trackEvent('get_reading', {
+    method: writtenOnly ? 'written' : 'symbol',
+    symbol: writtenOnly ? null : currentSymbol.name,
+    had_detail: hasMeaningfulDetail()
+  });
+});
+
+const MAX_WORDS = 500;
+const wordCountEl = document.getElementById('wordCount');
+
+function countWords(text){
+  const trimmed = text.trim();
+  return trimmed === '' ? 0 : trimmed.split(/\s+/).length;
+}
+
+function updateWordCount(){
+  let words = detailInput.value.trim() === '' ? [] : detailInput.value.trim().split(/\s+/);
+  if(words.length > MAX_WORDS){
+    words = words.slice(0, MAX_WORDS);
+    detailInput.value = words.join(' ');
+  }
+  const count = words.length;
+  wordCountEl.textContent = `${count}/${MAX_WORDS} words`;
+  wordCountEl.classList.toggle('at-limit', count >= MAX_WORDS);
+  wordCountEl.classList.toggle('near-limit', count >= MAX_WORDS * 0.9 && count < MAX_WORDS);
+}
+
+const bypassLine = document.getElementById('bypassLine');
+const bypassLink = document.getElementById('bypassLink');
+
+function updateBypassVisibility(){
+  const shouldShow = !!currentSymbol && hasMeaningfulDetail();
+  bypassLine.style.display = shouldShow ? 'block' : 'none';
+}
+
+detailInput.addEventListener('input', updateWordCount);
+
+detailInput.addEventListener('input', ()=>{
+  updateBypassVisibility();
+  if(currentSymbol) return;
+  interpretBtn.textContent = hasMeaningfulDetail() ? 'Interpret my dream' : 'Spin & Interpret';
+});
+
+bypassLink.addEventListener('click', (e)=>{
+  e.preventDefault();
+  currentSymbol = null;
+  interpretBtn.textContent = 'Interpret my dream';
+  bypassLine.style.display = 'none';
+});
+
+document.getElementById('copyBtn').addEventListener('click', ()=>{
+  const text = `${resultSymbol.textContent}\n\n${resultBody.textContent}\n\n— via Dream Interpreter Wheel`;
+  const btn = document.getElementById('copyBtn');
+  const original = btn.textContent;
+
+  function showCopied(){
+    btn.textContent = 'Copied!';
+    trackEvent('copy_reading');
+    setTimeout(()=> btn.textContent = original, 1500);
+  }
+  function showFailed(){
+    btn.textContent = 'Press & hold text to copy';
+    setTimeout(()=> btn.textContent = original, 2200);
+  }
+
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(showCopied).catch(()=>{
+      fallbackCopy(text, showCopied, showFailed);
+    });
+  } else {
+    fallbackCopy(text, showCopied, showFailed);
+  }
+});
+
+function fallbackCopy(text, onSuccess, onFail){
+  try{
+    const temp = document.createElement('textarea');
+    temp.value = text;
+    temp.style.position = 'fixed';
+    temp.style.opacity = '0';
+    document.body.appendChild(temp);
+    temp.focus();
+    temp.select();
+    const success = document.execCommand('copy');
+    document.body.removeChild(temp);
+    success ? onSuccess() : onFail();
+  }catch(e){
+    onFail();
+  }
+}
+
+document.getElementById('againBtn').addEventListener('click', ()=>{
+  trackEvent('spin_again');
+  resultBox.classList.remove('show');
+  interpretBtn.textContent = 'Spin & Interpret';
+  currentSymbol = null;
+  spin();
+});
+
+document.getElementById('clearBtn').addEventListener('click', ()=>{
+  trackEvent('clear_reset');
+  resultBox.classList.remove('show');
+  currentSymbol = null;
+  detailInput.value = '';
+  updateWordCount();
+  interpretBtn.textContent = 'Spin & Interpret';
+  bypassLine.style.display = 'none';
+  dial.style.transform = 'rotate(0deg)';
+  totalRotation = 0;
+});
+</script>
+</body>
+</html>
