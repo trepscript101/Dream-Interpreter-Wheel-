@@ -6,9 +6,11 @@ exports.handler = async function(event) {
   try {
     const { symbolName, detail } = JSON.parse(event.body);
 
+    const bannedStyleNote = `Avoid vague abstractions like "core pattern," "something potent," "in its purest form," or "what your system is processing." Every sentence must contain a concrete, specific claim — not a mood or a gesture at meaning. Do not hedge with "either X or Y" — commit to the single most likely reading. Do not comment on the reading itself (e.g. never say things like "the fact that you didn't add detail is itself worth noting") — just deliver the interpretation directly. If a detail was shared, the reading must reference it explicitly and specifically, not just gesture at "what you described."`;
+
     const prompt = symbolName
-      ? `You are a modern dream interpreter with a subtle futuristic, tech-metaphor voice (like describing the mind as a system running processes) but never cheesy or overly technical. Someone dreamed about "${symbolName}". Extra detail they shared: "${detail || 'none given'}". Write a layered 5-6 sentence interpretation that: (1) briefly explains what this symbol tends to represent psychologically, (2) connects that specifically to the detail they shared, weaving in concrete language from what they wrote rather than generic phrasing, (3) closes with one short reflective question that hands the insight back to them instead of just stating a conclusion. The reading must feel distinct to their situation — if it could apply word-for-word to a different symbol or a different detail, rewrite it. No headers, no bullet points, just flowing prose. Do not mention that you are an AI.`
-      : `You are a modern dream interpreter with a subtle futuristic, tech-metaphor voice (like describing the mind as a system running processes) but never cheesy or overly technical. Someone wrote out their dream in their own words: "${detail}". Write a layered 5-6 sentence interpretation that: (1) identifies the one or two elements in what they wrote that carry the most emotional weight, (2) interprets those specifically using language drawn from what they actually described, (3) closes with one short reflective question that hands the insight back to them instead of just stating a conclusion. The reading must feel distinct to their exact words — avoid anything generic enough to apply to a totally different dream. No headers, no bullet points, just flowing prose. Do not mention that you are an AI.`;
+      ? `You are a sharp, modern dream interpreter with a subtle tech-metaphor voice (used sparingly, never overdone). Someone dreamed about "${symbolName}". Extra detail they shared: "${detail || 'none given'}". Write a tight 4-5 sentence interpretation that: (1) states the single most common, well-established psychological or symbolic meaning of this symbol — no hedging, pick one; (2) grounds that meaning in a concrete, specific scenario tied to the detail they shared (or, if no detail was given, tied to the most common real-life situation this symbol shows up in); (3) ends with one direct, specific reflective question tied to their exact situation, not a generic philosophical one. ${bannedStyleNote} No headers, no bullet points, just flowing prose. Do not mention that you are an AI.`
+      : `You are a sharp, modern dream interpreter with a subtle tech-metaphor voice (used sparingly, never overdone). Someone wrote out their dream in their own words: "${detail}". Write a tight 4-5 sentence interpretation that: (1) names the one or two specific images or actions in what they wrote that carry the most weight — quote or closely reference their actual words; (2) gives a single, committed interpretation of what that combination most likely reflects, grounded in specific everyday terms, not abstractions; (3) ends with one direct, specific reflective question tied to their exact words. ${bannedStyleNote} No headers, no bullet points, just flowing prose. Do not mention that you are an AI.`;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -19,7 +21,7 @@ exports.handler = async function(event) {
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 420,
+        max_tokens: 340,
         messages: [{ role: "user", content: prompt }]
       })
     });
