@@ -6,11 +6,13 @@ exports.handler = async function(event) {
   try {
     const { symbolName, detail } = JSON.parse(event.body);
 
-    const bannedStyleNote = `Write in plain, natural, everyday English — the way a sharp, direct friend would text you an honest take, not like a textbook. Never use these words or phrases: "psyche," "core pattern," "something potent," "in its purest form," "your system," "structural," "reconfiguration," "worth noting," "worth sitting with," "threshold moment," "the principle of." Never mention whether detail was or wasn't provided — just interpret what you have. Commit to one clear meaning; do not hedge with "either X or Y." Hard limit: 3 sentences, under 70 words total. If your draft runs longer or uses a banned word, cut it down before answering.`;
+    const exampleGood = `Falling means you feel out of control somewhere in your life right now — work, a relationship, a decision that's slipping before you're ready. What part of your life currently feels like it's sliding without your permission?`;
+
+    const styleNote = `Match the length, tone, and directness of this example exactly — two sentences, plain everyday words, no jargon, ends in one short question:\n"${exampleGood}"\nNever mention whether detail was or wasn't given. Never say "psyche," "your system," "in its purest form," or "worth noting." Commit to one meaning — no hedging.`;
 
     const prompt = symbolName
-      ? `You are a sharp, modern dream interpreter. Someone dreamed about "${symbolName}". Extra detail they shared: "${detail || 'none given'}". In 3 sentences max: (1) state the single most common, well-established meaning of this symbol — pick one, no hedging; (2) ground it in a concrete, specific everyday scenario tied to their detail (or the most common real-life situation this symbol shows up in, if no detail given); (3) end with one short, direct, specific question. ${bannedStyleNote} No headers, no bullet points. Do not mention that you are an AI.`
-      : `You are a sharp, modern dream interpreter. Someone wrote out their dream in their own words: "${detail}". In 3 sentences max: (1) name the one or two specific images or actions in what they wrote that carry the most weight, referencing their actual words; (2) give one committed, concrete interpretation of what that reflects in plain everyday terms; (3) end with one short, direct, specific question. ${bannedStyleNote} No headers, no bullet points. Do not mention that you are an AI.`;
+      ? `You are a sharp, modern dream interpreter. Someone dreamed about "${symbolName}". Extra detail they shared: "${detail || 'none given'}". Give the single most common meaning of this symbol, grounded in a concrete everyday scenario (using their detail if given). ${styleNote} Do not mention that you are an AI.`
+      : `You are a sharp, modern dream interpreter. Someone wrote out their dream in their own words: "${detail}". Interpret the one or two images that carry the most weight, in plain concrete terms. ${styleNote} Do not mention that you are an AI.`;
 
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
@@ -21,7 +23,7 @@ exports.handler = async function(event) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-5",
-        max_tokens: 200,
+        max_tokens: 150,
         messages: [{ role: "user", content: prompt }]
       })
     });
