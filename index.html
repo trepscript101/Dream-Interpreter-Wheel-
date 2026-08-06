@@ -386,12 +386,15 @@ async function generateInterpretation(symbol, detail){
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ symbolName: symbol ? symbol.name : null, detail: detail })
     });
-    if(!response.ok) throw new Error("function call failed");
+    if(!response.ok){
+      const errText = await response.text();
+      return `[DEBUG] Status ${response.status}: ${errText}`;
+    }
     const data = await response.json();
     if(data.text) return data.text.trim();
-    throw new Error("no text");
+    return `[DEBUG] Function responded OK but no text field. Raw: ${JSON.stringify(data)}`;
   }catch(e){
-    return symbol ? localInterpretation(symbol, detail) : localTextOnlyInterpretation(detail);
+    return `[DEBUG] Network/JS error: ${e.message}`;
   }
 }
 
