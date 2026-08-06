@@ -31,7 +31,7 @@ exports.handler = async function(event) {
 
     const exampleGood = `Falling means you feel out of control somewhere in your life right now — work, a relationship, a decision that's slipping before you're ready. What part of your life currently feels like it's sliding without your permission?`;
 
-    const styleNote = `Match the length, tone, and directness of this example exactly — two sentences, plain everyday words, no jargon, ends in one short question:\n"${exampleGood}"\nNever mention whether detail was or wasn't given. Do not use ANY computer, technology, or systems-metaphor language whatsoever — no "system," "operating mode," "workaround," "access," "default," "process," or similar engineering-style words, even ones not listed here. Write only the way a smart, direct friend would talk, never like a machine describing another machine. Be simple and intelligent, not padded or vague. Commit to one meaning — no hedging. Start your reply with the exact tag [V4] followed by a space, then your two-sentence reading.`;
+    const styleNote = `Match the length, tone, and directness of this example exactly — two sentences, plain everyday words, no jargon, ends in one short question:\n"${exampleGood}"\nNever mention whether detail was or wasn't given. Do not use ANY computer, technology, or systems-metaphor language whatsoever — no "system," "operating mode," "workaround," "access," "default," "process," or similar engineering-style words, even ones not listed here. Write only the way a smart, direct friend would talk, never like a machine describing another machine. Be simple and intelligent, not padded or vague. Commit to one meaning — no hedging.`;
 
     const prompt = symbolName
       ? `You are a sharp, modern dream interpreter. Someone dreamed about "${symbolName}". Extra detail they shared: "${detail || 'none given'}". ${groundingLine} ${styleNote} Do not mention that you are an AI.`
@@ -47,7 +47,6 @@ exports.handler = async function(event) {
       body: JSON.stringify({
         model: "claude-sonnet-5",
         max_tokens: 100,
-        temperature: 0.4,
         messages: [{ role: "user", content: prompt }]
       })
     });
