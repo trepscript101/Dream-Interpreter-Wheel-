@@ -157,9 +157,14 @@
 
   .note{ margin-top:36px; padding-top:18px; border-top:1px solid var(--line); font-size:12px; color:var(--text-dim); text-align:center; line-height:1.6; }
   .privacy-line{ margin-top:8px; font-size:10.5px; color:#5c6389; text-align:center; }
-  .footer-nav{ margin-top:14px; text-align:center; font-size:11.5px; }
-  .footer-nav a{ color:var(--text-dim); text-decoration:none; font-weight:700; }
-  .footer-nav a:hover{ color:var(--teal); }
+  #menuPanel a:hover{ background:rgba(139,123,247,0.15); color:var(--teal) !important; }
+  #menuBtn:hover{ border-color:var(--violet); }
+  .homepage-content{ margin-top:44px; padding-top:8px; }
+  .hc-heading{ font-family:'Space Grotesk', sans-serif; font-size:19px; color:var(--text); margin:36px 0 12px; }
+  .hc-heading:first-child{ margin-top:0; }
+  .hc-body{ font-size:14.5px; line-height:1.75; color:#c7cae6; margin:0 0 14px; }
+  .hc-list{ padding-left:20px; margin:0 0 14px; }
+  .hc-list li{ font-size:14.5px; line-height:1.75; color:#c7cae6; margin-bottom:8px; }
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SHZLFX62ES"></script>
 <script>
@@ -169,10 +174,25 @@
   gtag('config', 'G-SHZLFX62ES');
 </script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7170565918227194" crossorigin="anonymous"></script>
+<link rel="canonical" href="https://dreaminterpreterwheel.com/">
 </head>
 
 <body>
 <div class="wrap">
+  <div style="display:flex; justify-content:flex-end; position:relative; margin-bottom:6px;">
+    <button id="menuBtn" aria-label="Menu" style="width:42px; height:42px; border-radius:10px; background:#151b32; border:1px solid rgba(255,255,255,0.08); cursor:pointer; display:flex; align-items:center; justify-content:center;">
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><line x1="0" y1="1" x2="18" y2="1" stroke="#eceefc" stroke-width="2"/><line x1="0" y1="7" x2="18" y2="7" stroke="#eceefc" stroke-width="2"/><line x1="0" y1="13" x2="18" y2="13" stroke="#eceefc" stroke-width="2"/></svg>
+    </button>
+    <div id="menuPanel" style="position:absolute; top:48px; right:0; z-index:50; background:#151b32; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:10px; display:none; flex-direction:column; gap:2px; min-width:170px; box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+      <a href="/dreams/index.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">Dream Dictionary</a>
+      <a href="/about.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">About</a>
+      <a href="/journal/index.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">Dream Files</a>
+      <a href="/faq.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">FAQ</a>
+      <a href="/privacy.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">Privacy</a>
+      <a href="/terms.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">Terms</a>
+      <a href="/contact.html" style="padding:9px 10px; border-radius:8px; color:#eceefc; text-decoration:none; font-size:14px; font-family:'Inter',sans-serif;">Contact</a>
+    </div>
+  </div>
   <h1>Decode Tonight's Journey</h1>
   <p class="sub">Spin randomly, tap the word that matches your dream, or just write it below.</p>
   <div class="streak" id="streakLine">✦ Come back tomorrow for a new reading</div>
@@ -210,9 +230,50 @@
     </div>
   </div>
 
+  <div class="homepage-content">
+
+    <h2 class="hc-heading">How to Use the Dream Interpreter Wheel</h2>
+    <p class="hc-body">There's no single "correct" way to use the wheel — pick whichever fits how much you remember. <strong style="color:var(--text);">Spin</strong> the dial for a random symbol if you want something to reflect on without deciding where to start. <strong style="color:var(--text);">Tap a word directly</strong> on the wheel if you already know the specific image from your dream — falling, water, a stranger, and so on. Or <strong style="color:var(--text);">skip the wheel entirely</strong> and just type what you remember into the text box below it; the reading will be built directly from your own words instead of a fixed symbol. All three paths lead to the same place: a short, specific reading you can actually think about, not a wall of generic text.</p>
+
+    <h2 class="hc-heading">Why Choose Dream Interpreter Wheel</h2>
+    <p class="hc-body">Most dream dictionaries online are the same handful of static definitions, copied and recirculated for years, with no connection to what you actually experienced. This tool works differently in two specific ways. First, every reading is grounded in real, established dream psychology — mainly Jungian and Freudian traditions — rather than invented loosely on the spot. Second, readings are generated fresh each time around whatever detail you share, so the same symbol reads differently for two different people, or for you on two different nights. Nothing you type is stored, there's no account required, and it's free to use as often as you'd like.</p>
+
+    <h2 class="hc-heading">Key Features</h2>
+    <ul class="hc-list">
+      <li><strong>Three ways to interpret a dream</strong> — spin, tap, or write, whichever fits what you remember.</li>
+      <li><strong>Grounded in real research</strong> — readings are anchored to established psychological meanings, not freely invented.</li>
+      <li><strong>Personalized, not templated</strong> — the same symbol produces a different, detail-specific reading every time.</li>
+      <li><strong>Completely private</strong> — what you write is used once to generate your reading and never stored.</li>
+      <li><strong>Free, with no account</strong> — nothing to sign up for, no limit on how often you use it.</li>
+      <li><strong>A full dream dictionary</strong> — sixteen common symbols explained in depth, browsable any time in the <a href="/dreams/index.html" style="color:var(--teal);">Dream Dictionary</a>.</li>
+    </ul>
+
+    <h2 class="hc-heading">Comparing How Dreams Get Interpreted</h2>
+    <p class="hc-body">Not every school of dream psychology reads a symbol the same way, and it's worth knowing the difference rather than treating "dream interpretation" as one single method.</p>
+    <p class="hc-body"><strong style="color:var(--text);">The Jungian approach</strong> treats dream symbols as messages from parts of yourself not yet consciously acknowledged — a stranger in a dream, for instance, often represents a disowned trait rather than an actual person, per Carl Jung's concept of the Shadow.</p>
+    <p class="hc-body"><strong style="color:var(--text);">The Freudian approach</strong> leans more toward dreams as disguised wish-fulfillment or repressed desire, with symbols standing in for something the conscious mind isn't ready to face directly.</p>
+    <p class="hc-body"><strong style="color:var(--text);">The modern, AI-assisted approach</strong> used on this site doesn't replace either tradition — it draws on both as a grounded starting point, then shapes the reading around the specific detail you actually describe, rather than handing back the same static definition to everyone who dreams about the same thing.</p>
+
+    <h2 class="hc-heading">Frequently Asked Questions</h2>
+
+    <p class="hc-body"><strong style="color:var(--text);">Why do we dream at all?</strong> There's no single settled answer, even among sleep researchers. The leading theories point to the brain sorting and storing memories, processing emotion away from the pressure of waking life, and rehearsing responses to difficult situations before they happen for real.</p>
+
+    <p class="hc-body"><strong style="color:var(--text);">What does it mean if I keep having the same dream?</strong> Recurring dreams are usually a sign that something — a stressor, an unresolved feeling — hasn't actually been resolved in waking life yet. The dream keeps returning until whatever it's circling gets addressed.</p>
+
+    <p class="hc-body"><strong style="color:var(--text);">Is this real psychology, or just made up?</strong> Readings are grounded in well-established dream psychology — mainly Jungian and Freudian traditions — not invented on the spot. That said, this is a tool for reflection, not clinical advice.</p>
+
+    <p class="hc-body"><strong style="color:var(--text);">Is my dream kept private?</strong> Yes. What you type is sent only to generate your reading and isn't stored, logged, or reviewed by anyone. See the <a href="/privacy.html" style="color:var(--teal);">Privacy Policy</a> for full details.</p>
+
+    <p class="hc-body"><strong style="color:var(--text);">Why did I get a different reading for the same symbol?</strong> That's intentional. The underlying meaning stays grounded and consistent, but the reading itself is written fresh each time, shaped around whatever detail you add.</p>
+
+    <p class="hc-body"><strong style="color:var(--text);">My symbol isn't on the wheel — what do I do?</strong> Skip the wheel entirely and just type your dream directly into the text box — it'll generate a reading based on exactly what you describe.</p>
+
+    <p class="hc-body">More questions — including why we forget dreams so fast, whether animals dream, and how stress changes dream content — are answered in full on the <a href="/faq.html" style="color:var(--teal);">FAQ page</a>.</p>
+
+  </div>
+
   <div class="note">✦ Dream Interpreter Wheel — a new symbol, a new read, every night you return.</div>
   <div class="privacy-line">Your dream stays private — sent only to generate your reading, never stored.</div>
-  <div class="footer-nav"><a href="/dreams/index.html">Dream Dictionary</a> · <a href="/about.html">About</a> · <a href="/faq.html">FAQ</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/contact.html">Contact</a></div>
 </div>
 
 <script>
@@ -533,6 +594,20 @@ document.getElementById('clearBtn').addEventListener('click', ()=>{
   dial.style.transform = 'rotate(0deg)';
   totalRotation = 0;
 });
+</script>
+<script>
+  document.getElementById('menuBtn').addEventListener('click', function(e){
+    e.stopPropagation();
+    var panel = document.getElementById('menuPanel');
+    panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
+  });
+  document.addEventListener('click', function(e){
+    var panel = document.getElementById('menuPanel');
+    var btn = document.getElementById('menuBtn');
+    if(panel.style.display === 'flex' && !panel.contains(e.target) && !btn.contains(e.target)){
+      panel.style.display = 'none';
+    }
+  });
 </script>
 </body>
 </html>

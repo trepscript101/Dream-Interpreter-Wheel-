@@ -21,6 +21,16 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://dreaminterpreterwheel.com/terms.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
     <loc>https://dreaminterpreterwheel.com/dreams/index.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -106,13 +116,63 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dreaminterpreterwheel.com/terms.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://dreaminterpreterwheel.com/dreams/getting-lost-in-a-forest.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dreaminterpreterwheel.com/faq.html</loc>
+    <loc>https://dreaminterpreterwheel.com/dreams/being-pregnant.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/dreams/burning-house.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/index.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/near-death-experience-dreams.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/past-life-dreams.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/prophetic-dreams.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/sleep-paralysis-shadow-figure.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/astral-projection-dreams.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/fever-dreams.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/titanic-dream-premonitions.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dreaminterpreterwheel.com/journal/deja-vu-and-dreams.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
