@@ -62,6 +62,15 @@
   .support-box a.support-btn{ display:block; text-align:center; background:#1a1a1a; color:#fff; text-decoration:none; font-weight:600; font-size:16px; padding:15px 18px; border-radius:999px; margin-top:6px; }
   .merch{ margin:22px 0 0; text-align:center; font-size:13.5px; }
   .merch a{ color:#9098bd; text-decoration:underline; }
+  .book-promo{ display:flex; gap:16px; align-items:center; margin:30px 0; padding:16px; border-radius:14px; background:var(--panel); border:1px solid rgba(139,123,247,0.4); text-decoration:none; }
+  .book-promo:hover{ border-color:var(--teal); }
+  .book-promo img{ width:96px; height:auto; flex:0 0 96px; border-radius:6px; display:block; }
+  .bp-text{ display:block; min-width:0; }
+  .bp-label{ display:block; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--teal); font-weight:600; margin-bottom:6px; }
+  .bp-title{ display:block; font-family:'Space Grotesk', sans-serif; font-size:16.5px; line-height:1.3; color:var(--text); font-weight:700; margin-bottom:6px; }
+  .bp-sub{ display:block; font-size:12.5px; line-height:1.5; color:var(--text-dim); margin-bottom:12px; }
+  .bp-btn{ display:inline-block; background:linear-gradient(120deg, var(--violet), var(--teal)); color:#0a0d1a; font-weight:700; font-size:13.5px; padding:10px 18px; border-radius:999px; }
+  @media (max-width:440px){ .book-promo{ flex-direction:column; text-align:center; } .book-promo img{ width:130px; flex:none; } }
 </style>
 </head>
 <body>
@@ -99,6 +108,15 @@
 
   <h2>8) Trusting the Inner Voice</h2>
   <p>Intuition, often described as the inner voice or gut feeling, is described in many spiritual traditions — including my own — as a subtle form of divine guidance. Learning to trust and listen to this intuitive sense can lead individuals toward decisions and actions that feel aligned with a greater purpose.</p>
+  <a class="book-promo" href="https://selar.com/76mk1jc6h7" target="_blank" rel="noopener" onclick="if(window.gtag){gtag('event','book_click')}">
+    <img src="/images/book-you-can-be-extraordinary.jpg" alt="Book cover: You Can Be Extraordinary, But Will You? by Patrick Paul-Lukpata" width="300" height="505" loading="lazy">
+    <span class="bp-text">
+      <span class="bp-label">From the author</span>
+      <span class="bp-title">Get the book: You Can Be Extraordinary, But Will You?</span>
+      <span class="bp-sub">How to explore your personal tool box of love, gratitude, optimism, and the power of preparation to create abundance in your life</span>
+      <span class="bp-btn">Get Your Copy →</span>
+    </span>
+  </a>
 
   <h2>Anecdotes of People Who Recognized and Benefited from Divine Help</h2>
 
@@ -140,7 +158,7 @@
 
   <div class="merch"><a href="https://www.redbubble.com/i/t-shirt/Happiness-is-FREE-by-Trepscript101/161178981/lrcw" target="_blank" rel="noopener">Happiness is FREE — T-shirt on Redbubble</a></div>
 
-  <div class="back"><a href="/journal/index.html">← Back to Dream Files</a> &nbsp;·&nbsp; <a href="/">Back to the wheel</a></div>
+  <div class="back"><a href="/journal/index.html">← Back to Dream Files</a> &nbsp;·&nbsp; <a href="/dreams/index.html">Dream Dictionary</a> &nbsp;·&nbsp; <a href="/">Back to the wheel</a></div>
 </div>
 </body>
 </html>
